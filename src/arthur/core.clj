@@ -5,7 +5,7 @@
 
 (defrel dev x)
 (defrel pm x)
-
+(defrel youngling x)
 (fact dev 'rod)
 (fact dev 'gavd)
 (fact dev 'craig)
@@ -17,10 +17,12 @@
 (fact dev 'david)
 (fact dev 'bendy)
 (fact dev 'steff)
-
 (fact pm 'pete)
 (fact pm 'ines)
 (fact pm 'ian)
+(fact youngling 'kdawg)
+(fact youngling 'steff)
+(fact youngling 'bendy)
 
 (defn teamo [xs]
   (conde
@@ -45,5 +47,6 @@
     (pm x)
     (dev y)
     (dev z)
+    (youngling y)
     (teamo [x y z])))
 
