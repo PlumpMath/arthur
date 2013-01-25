@@ -6,6 +6,7 @@
 (defrel dev x)
 (defrel pm x)
 (defrel youngling x)
+(defrel lead x)
 (fact dev 'rod)
 (fact dev 'gavd)
 (fact dev 'craig)
@@ -23,30 +24,32 @@
 (fact youngling 'kdawg)
 (fact youngling 'steff)
 (fact youngling 'bendy)
+(fact lead 'gavd)
+(fact lead 'craig)
+(fact lead 'tidy)
 
-(defn teamo [xs]
+(defn ^ {:doc "Teams are 3 people; 1 PM, 1 Lead and 1 Youngling"}
+  teamo [xs]
   (conde
     ((fresh [x y ys z zs]
       (conso x ys xs)
       (conso y zs ys)
       (conso z () zs)
+      (pm x)
+      (lead y)
+      (youngling z)
       (!= x y)
       (!= x z)
       (!= y z)))))
 
-(defn leado [xs]
+(defn teamso [xs]
   (conde
+    ((== xs ()))
     ((fresh [x y]
       (conso x y xs)
-      (man x)
-      (meno y)))))
+      (teamo x)
+      (teamso y)))))
 
 (run 3 [q]
-  (fresh [x y z]
-    (== q [x y z])
-    (pm x)
-    (dev y)
-    (dev z)
-    (youngling y)
-    (teamo [x y z])))
+  (teamso q))
 
