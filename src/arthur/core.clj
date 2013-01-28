@@ -28,6 +28,47 @@
 (fact lead 'craig)
 (fact lead 'tidy)
 
+(defn containso [x xs]
+  (conde
+    ((fresh [y ys]
+       (conso y ys xs)
+       (== x y)))
+    ((fresh [y ys]
+      (conso y ys xs)
+      (containso x ys)))))
+
+(defn lasto [x xs]
+  (conde
+    ((fresh [a b]
+      (conso a b xs)
+      (== b '())
+      (== a x)))
+    ((fresh [a b]
+      (conso a b xs)
+      (lasto x b)))))
+
+(defn firsto2 [x xs]
+  (conde
+    ((fresh [a b]
+      (conso a b xs)
+      (== a x)))))
+
+;; TODO
+
+(run 1 [q]
+  (ppendo '(1 2 3) '(4 5 6) q))
+
+(defn ppendo [xs ys zs]
+  (conde
+    ((== ys '()) (== xs zs))
+    ((fresh [a b c d]
+      (conso a b ys)
+      (conso a '() c)
+      (ppendo a xs d)
+      (ppendo d b zs)))))
+
+;; TEAMS
+
 (defn ^ {:doc "Teams are 3 people; 1 PM, 1 Lead and 1 Youngling"}
   teamo [xs]
   (conde
