@@ -47,25 +47,13 @@
       (conso a b xs)
       (lasto x b)))))
 
-(defn firsto2 [x xs]
+(defn flatteno [xs ys]
   (conde
-    ((fresh [a b]
+    ((== xs '()) (== xs ys))
+    ((fresh [a b c]
       (conso a b xs)
-      (== a x)))))
-
-;; TODO
-
-(run 1 [q]
-  (ppendo '(1 2 3) '(4 5 6) q))
-
-(defn ppendo [xs ys zs]
-  (conde
-    ((== ys '()) (== xs zs))
-    ((fresh [a b c d]
-      (conso a b ys)
-      (conso a '() c)
-      (ppendo a xs d)
-      (ppendo d b zs)))))
+      (flatteno b c)
+      (appendo a c ys)))))
 
 ;; TEAMS
 
