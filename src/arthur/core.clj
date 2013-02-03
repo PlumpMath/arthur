@@ -47,13 +47,14 @@
       (conso a b xs)
       (lasto x b)))))
 
-(defn flatteno [xs ys]
-  (conde
-    ((== xs '()) (== xs ys))
-    ((fresh [a b c]
-      (conso a b xs)
+(defne flatteno
+  "A relation which matches ys as a flattening of xs"
+  [xs ys]
+  (['() _] (== ys '()))
+  ([[a . b] _]
+    (fresh [c]
       (flatteno b c)
-      (appendo a c ys)))))
+      (appendo a c ys))))
 
 ;; TEAMS
 
